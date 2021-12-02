@@ -39,24 +39,21 @@ namespace WindowsFormsApp10
                 $"and zoldseg.nev like '{filter}'", connection);
             connection.Open();
             var reader = command.ExecuteReader();
-            int bevetel = 0;
+            int bevetel;
             while (reader.Read())
             {
                 bevetel = (int)reader[2] * (int)reader[3];
-                dataGridView1.Rows.Add(reader[0], reader[1], bevetel);
-
+                dataGridView1.Rows.Add(reader[0], reader[1],
+                            (int)reader[2] * (int)reader[3]);
             }
-
             connection.Close();
-
-
-
-
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+ 
+
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
-            refreshDGV("%"+textBox1.Text+"%");
+            refreshDGV(textBox1.Text + "%");
         }
     }
 }
